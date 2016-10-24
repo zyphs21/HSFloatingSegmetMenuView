@@ -16,6 +16,13 @@ class ViewController: UIViewController {
     var inset: CGFloat = 240
     var tableViewOffSet: CGFloat = 0
     var observing = true
+    lazy var offSetDic: [Int: CGFloat] = {
+        var dic: [Int: CGFloat] = [:]
+        for index in 0 ..< self.childViewControllers.count {
+            dic[index] = CGFloat.leastNormalMagnitude
+        }
+        return dic
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,25 +77,34 @@ class ViewController: UIViewController {
         if let new = changeValues[NSKeyValueChangeKey.newKey]?.cgPointValue,
             let old = changeValues[NSKeyValueChangeKey.oldKey]?.cgPointValue {
             
-//            let diff = new.y - old.y
+            let diff = new.y - old.y
             
             print("new.y" + "\(new.y)")
             print("old.y" + "\(old.y)")
-            //            dPrint(diff)
+            print(diff)
             
-            if new.y <= 200 {
-                tableViewOffSet = new.y
-                if headView?.superview != scrollView {
-                    scrollView?.addSubview(headView!)
-                    headView?.frame.origin.y = 0
-                }
-            } else {
-                tableViewOffSet = new.y
+            if new.y > 200 {
                 if headView?.superview != self.view {
                     self.view?.addSubview(headView!)
                     headView?.frame.origin.y = -200
                 }
+                for (key, _) in offSetDic {
+                    if key == scrollView?.tag {
+                        offSetDic[key] = new.y
+                    } else if offSetDic[key]! <= CGFloat(200) {
+                        offSetDic[key] = 200
+                    }
+                }
+            } else {
+                for (key, _) in offSetDic {
+                    offSetDic[key] = new.y
+                }
+                if headView?.superview != scrollView {
+                    scrollView?.addSubview(headView!)
+                    headView?.frame.origin.y = 0
+                }
             }
+            
         }
     }
     
@@ -102,12 +118,16 @@ extension ViewController: SegmentMenuDelegate {
             let selectedVC: FirstViewController = self.childViewControllers[index] as! FirstViewController
             selectedVC.view.frame = self.view.bounds
             selectedVC.tableView?.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: inset))
+            selectedVC.tableView?.tag = index
             selectedVC.tableView?.addObserver(self, forKeyPath: "contentOffset",
                                               options: [NSKeyValueObservingOptions.new, NSKeyValueObservingOptions.old],
                                               context: nil)
             if (selectedVC.view.superview == nil){
                 self.view.addSubview(selectedVC.view)
             }
+            
+            let offSet = offSetDic[(selectedVC.tableView?.tag)!]
+            selectedVC.tableView?.contentOffset = CGPoint(x: 0, y: offSet!)
             if tableViewOffSet <= 200 {
                 selectedVC.tableView?.addSubview(headView!)
                 headView?.frame.origin.y = 0
@@ -115,19 +135,20 @@ extension ViewController: SegmentMenuDelegate {
                 self.view.addSubview(headView!)
                 headView?.frame.origin.y = -200
             }
-            selectedVC.tableView?.setContentOffset(CGPoint(x: 0, y: tableViewOffSet), animated: false)
             self.view.bringSubview(toFront: selectedVC.view)
         case 1:
             let selectedVC: SecondViewController = self.childViewControllers[index] as! SecondViewController
             selectedVC.view.frame = self.view.bounds
             selectedVC.tableView?.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: inset))
+            selectedVC.tableView?.tag = index
             selectedVC.tableView?.addObserver(self, forKeyPath: "contentOffset",
                                               options: [NSKeyValueObservingOptions.new, NSKeyValueObservingOptions.old],
                                               context: nil)
             if (selectedVC.view.superview == nil){
-                selectedVC.view.frame = self.view.bounds
                 self.view.addSubview(selectedVC.view)
             }
+            let offSet = offSetDic[(selectedVC.tableView?.tag)!]
+            selectedVC.tableView?.contentOffset = CGPoint(x: 0, y: offSet!)
             if tableViewOffSet <= 200 {
                 selectedVC.tableView?.addSubview(headView!)
                 headView?.frame.origin.y = 0
@@ -135,19 +156,20 @@ extension ViewController: SegmentMenuDelegate {
                 self.view.addSubview(headView!)
                 headView?.frame.origin.y = -200
             }
-            selectedVC.tableView?.setContentOffset(CGPoint(x: 0, y: tableViewOffSet), animated: false)
             self.view.bringSubview(toFront: selectedVC.view)
         case 2:
             let selectedVC: ThirdViewController = self.childViewControllers[index] as! ThirdViewController
             selectedVC.view.frame = self.view.bounds
             selectedVC.tableView?.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: inset))
+            selectedVC.tableView?.tag = index
             selectedVC.tableView?.addObserver(self, forKeyPath: "contentOffset",
                                               options: [NSKeyValueObservingOptions.new, NSKeyValueObservingOptions.old],
                                               context: nil)
             if (selectedVC.view.superview == nil){
-                selectedVC.view.frame = self.view.bounds
                 self.view.addSubview(selectedVC.view)
             }
+            let offSet = offSetDic[(selectedVC.tableView?.tag)!]
+            selectedVC.tableView?.contentOffset = CGPoint(x: 0, y: offSet!)
             if tableViewOffSet <= 200 {
                 selectedVC.tableView?.addSubview(headView!)
                 headView?.frame.origin.y = 0
@@ -155,7 +177,6 @@ extension ViewController: SegmentMenuDelegate {
                 self.view.addSubview(headView!)
                 headView?.frame.origin.y = -200
             }
-            selectedVC.tableView?.setContentOffset(CGPoint(x: 0, y: tableViewOffSet), animated: false)
             self.view.bringSubview(toFront: selectedVC.view)
         default: break
             

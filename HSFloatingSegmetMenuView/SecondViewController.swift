@@ -14,7 +14,7 @@ class SecondViewController: UIViewController {
     let cellIdentifier = "UITableViewCell"
     lazy var testArray: [String] = {
         var array: [String] = []
-        for i in 1...19 {
+        for i in 1...35 {
             array.append("\(i)-2")
         }
         return array
@@ -32,6 +32,7 @@ class SecondViewController: UIViewController {
         tableView?.dataSource = self
         tableView?.estimatedRowHeight = 30
         tableView?.rowHeight = UITableViewAutomaticDimension
+        tableView?.tableFooterView = UIView()
         tableView?.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
         self.view.addSubview(tableView!)
@@ -49,7 +50,7 @@ extension SecondViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 19
+        return 35
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

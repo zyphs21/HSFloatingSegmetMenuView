@@ -14,7 +14,7 @@ class ThirdViewController: UIViewController {
     let cellIdentifier = "UITableViewCell"
     lazy var testArray: [String] = {
         var array: [String] = []
-        for i in 1...5 {
+        for i in 1...20 {
             array.append("\(i)-3")
         }
         return array
@@ -32,6 +32,7 @@ class ThirdViewController: UIViewController {
         tableView?.dataSource = self
         tableView?.estimatedRowHeight = 30
         tableView?.rowHeight = UITableViewAutomaticDimension
+        tableView?.tableFooterView = UIView()
         tableView?.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
         self.view.addSubview(tableView!)
@@ -49,7 +50,7 @@ extension ThirdViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 20
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
