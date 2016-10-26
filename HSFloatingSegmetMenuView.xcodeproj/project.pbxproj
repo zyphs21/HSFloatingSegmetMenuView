@@ -17,6 +17,7 @@
 		C0199D0D1DBDF45500AB5428 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0199D0C1DBDF45500AB5428 /* FirstViewController.swift */; };
 		C0199D0F1DBDF45F00AB5428 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0199D0E1DBDF45F00AB5428 /* SecondViewController.swift */; };
 		C0199D111DBDF46B00AB5428 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0199D101DBDF46B00AB5428 /* ThirdViewController.swift */; };
+		C0D4DAE51DC04D3500F8A9A7 /* BasicTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D4DAE41DC04D3500F8A9A7 /* BasicTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		C0199D0C1DBDF45500AB5428 /* FirstViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		C0199D0E1DBDF45F00AB5428 /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		C0199D101DBDF46B00AB5428 /* ThirdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
+		C0D4DAE41DC04D3500F8A9A7 /* BasicTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				C0199D0C1DBDF45500AB5428 /* FirstViewController.swift */,
 				C0199D0E1DBDF45F00AB5428 /* SecondViewController.swift */,
 				C0199D101DBDF46B00AB5428 /* ThirdViewController.swift */,
+				C0D4DAE41DC04D3500F8A9A7 /* BasicTableViewController.swift */,
 				C0199CFA1DBDF3E300AB5428 /* Main.storyboard */,
 				C0199CFD1DBDF3E300AB5428 /* Assets.xcassets */,
 				C0199CFF1DBDF3E300AB5428 /* LaunchScreen.storyboard */,
@@ -153,6 +156,7 @@
 			files = (
 				C0199D0F1DBDF45F00AB5428 /* SecondViewController.swift in Sources */,
 				C0199D0D1DBDF45500AB5428 /* FirstViewController.swift in Sources */,
+				C0D4DAE51DC04D3500F8A9A7 /* BasicTableViewController.swift in Sources */,
 				C0199D0B1DBDF42800AB5428 /* SegmentMenu.swift in Sources */,
 				C0199D111DBDF46B00AB5428 /* ThirdViewController.swift in Sources */,
 				C0199CF91DBDF3E300AB5428 /* ViewController.swift in Sources */,

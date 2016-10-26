@@ -8,9 +8,9 @@
 
 import UIKit
 
-class SecondViewController: UIViewController {
+class SecondViewController: BasicTableViewController {
 
-    var tableView: UITableView?
+//    var tableView: UITableView?
     let cellIdentifier = "UITableViewCell"
     lazy var testArray: [String] = {
         var array: [String] = []
