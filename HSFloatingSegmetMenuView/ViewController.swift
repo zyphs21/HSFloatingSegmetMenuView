@@ -10,6 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
 
+//    var rootScrollView: UIScrollView?
+    var showingVC: UIViewController?
     var segmentMenu: SegmentMenu?
     var headView: HeaderView?
     var headerView: UIView?
@@ -29,6 +31,9 @@ class ViewController: UIViewController {
         
         self.automaticallyAdjustsScrollViewInsets = false
         
+//        rootScrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+//        self.view.addSubview(rootScrollView!)
+        
         headView = HeaderView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: inset))
         segmentMenu = headView?.segmentMenu
         segmentMenu?.menuTitleArray = ["动态", "新闻", "公告"]
@@ -41,11 +46,9 @@ class ViewController: UIViewController {
         let secondVC = SecondViewController()
         secondVC.title = "新闻"
         self.addChildViewController(secondVC)
-
         
         let thirdVC = ThirdViewController()
         thirdVC.title = "公告"
-
         self.addChildViewController(thirdVC)
 
         segmentMenu?.setSelectButton(index: 0)
@@ -68,9 +71,9 @@ class ViewController: UIViewController {
         
         let scrollView = object as? UIScrollView
         if scrollView == nil { return }
-        if scrollView == self.view {
-            return
-        }
+//        if scrollView == self.rootScrollView {
+//            return
+//        }
         
         let changeValues = change as! [NSKeyValueChangeKey: AnyObject]
         
@@ -83,7 +86,7 @@ class ViewController: UIViewController {
             print("old.y" + "\(old.y)")
             print(diff)
             
-            if new.y > 200 {
+            if new.y >= 200 {
                 if headView?.superview != self.view {
                     self.view?.addSubview(headView!)
                     headView?.frame.origin.y = -200
@@ -113,6 +116,7 @@ class ViewController: UIViewController {
 
 extension ViewController: SegmentMenuDelegate {
     func menuButtonDidClick(index: Int) {
+        showingVC?.view.removeFromSuperview()
         switch index {
         case 0:
             let selectedVC: FirstViewController = self.childViewControllers[index] as! FirstViewController
@@ -123,19 +127,21 @@ extension ViewController: SegmentMenuDelegate {
                                               options: [NSKeyValueObservingOptions.new, NSKeyValueObservingOptions.old],
                                               context: nil)
             if (selectedVC.view.superview == nil){
+//                self.rootScrollView?.addSubview(selectedVC.view)
                 self.view.addSubview(selectedVC.view)
             }
             
             let offSet = offSetDic[(selectedVC.tableView?.tag)!]
             selectedVC.tableView?.contentOffset = CGPoint(x: 0, y: offSet!)
-            if tableViewOffSet <= 200 {
+            if offSet! < CGFloat(200) {
                 selectedVC.tableView?.addSubview(headView!)
                 headView?.frame.origin.y = 0
             } else {
                 self.view.addSubview(headView!)
                 headView?.frame.origin.y = -200
             }
-            self.view.bringSubview(toFront: selectedVC.view)
+            showingVC = selectedVC
+//            self.view.bringSubview(toFront: selectedVC.view)
         case 1:
             let selectedVC: SecondViewController = self.childViewControllers[index] as! SecondViewController
             selectedVC.view.frame = self.view.bounds
@@ -145,18 +151,20 @@ extension ViewController: SegmentMenuDelegate {
                                               options: [NSKeyValueObservingOptions.new, NSKeyValueObservingOptions.old],
                                               context: nil)
             if (selectedVC.view.superview == nil){
+//                self.rootScrollView?.addSubview(selectedVC.view)
                 self.view.addSubview(selectedVC.view)
             }
             let offSet = offSetDic[(selectedVC.tableView?.tag)!]
             selectedVC.tableView?.contentOffset = CGPoint(x: 0, y: offSet!)
-            if tableViewOffSet <= 200 {
+            if offSet! < CGFloat(200) {
                 selectedVC.tableView?.addSubview(headView!)
                 headView?.frame.origin.y = 0
             } else {
                 self.view.addSubview(headView!)
                 headView?.frame.origin.y = -200
             }
-            self.view.bringSubview(toFront: selectedVC.view)
+            showingVC = selectedVC
+//            self.view.bringSubview(toFront: selectedVC.view)
         case 2:
             let selectedVC: ThirdViewController = self.childViewControllers[index] as! ThirdViewController
             selectedVC.view.frame = self.view.bounds
@@ -166,18 +174,20 @@ extension ViewController: SegmentMenuDelegate {
                                               options: [NSKeyValueObservingOptions.new, NSKeyValueObservingOptions.old],
                                               context: nil)
             if (selectedVC.view.superview == nil){
+//                self.rootScrollView?.addSubview(selectedVC.view)
                 self.view.addSubview(selectedVC.view)
             }
             let offSet = offSetDic[(selectedVC.tableView?.tag)!]
             selectedVC.tableView?.contentOffset = CGPoint(x: 0, y: offSet!)
-            if tableViewOffSet <= 200 {
+            if offSet! < CGFloat(200) {
                 selectedVC.tableView?.addSubview(headView!)
                 headView?.frame.origin.y = 0
             } else {
                 self.view.addSubview(headView!)
                 headView?.frame.origin.y = -200
             }
-            self.view.bringSubview(toFront: selectedVC.view)
+            showingVC = selectedVC
+//            self.view.bringSubview(toFront: selectedVC.view)
         default: break
             
         }
