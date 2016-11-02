@@ -15,7 +15,7 @@ class SecondViewController: BasicTableViewController {
     lazy var testArray: [String] = {
         var array: [String] = []
         for i in 1...35 {
-            array.append("\(i)-2")
+            array.append("2-" + "\(i)")
         }
         return array
     }()

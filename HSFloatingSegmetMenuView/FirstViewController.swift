@@ -15,7 +15,7 @@ class FirstViewController: BasicTableViewController {
     lazy var testArray: [String] = {
         var array: [String] = []
         for i in 1...30 {
-            array.append("\(i)-1")
+            array.append("1-" + "\(i)")
         }
         return array
     }()

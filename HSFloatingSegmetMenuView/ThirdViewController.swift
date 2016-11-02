@@ -15,7 +15,7 @@ class ThirdViewController: BasicTableViewController {
     lazy var testArray: [String] = {
         var array: [String] = []
         for i in 1...20 {
-            array.append("\(i)-3")
+            array.append("3-" + "\(i)")
         }
         return array
     }()

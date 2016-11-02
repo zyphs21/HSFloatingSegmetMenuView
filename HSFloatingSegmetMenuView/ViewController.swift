@@ -12,6 +12,7 @@ class ViewController: UIViewController {
 
     var showingVC: UIViewController?
     var segmentMenu: SegmentMenu?
+    var fixedSegmentMenu: SegmentMenu!
     var headView: HeaderView?
     var headerView: UIView?
     var inset: CGFloat = 240
@@ -30,6 +31,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         self.automaticallyAdjustsScrollViewInsets = false
+        
+//        fixedSegmentMenu = SegmentMenu(frame: CGRect(x: 0, y: 0, width: <#T##CGFloat#>, height: <#T##CGFloat#>))
         
         headView = HeaderView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: inset))
         
