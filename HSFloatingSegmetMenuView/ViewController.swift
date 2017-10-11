@@ -15,8 +15,8 @@ class ViewController: UIViewController {
     var fixedSegmentMenu: SegmentMenu!
     var headView: HeaderView?
     var headerView: UIView?
-    var inset: CGFloat = 240
-    var headerViewHeight: CGFloat = 200
+    var inset: CGFloat = 400
+    var headerViewHeight: CGFloat = 360
     var segmentMenuHeight: CGFloat = 40
     
     lazy var offSetDic: [Int: CGFloat] = {
@@ -31,9 +31,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         self.automaticallyAdjustsScrollViewInsets = false
-        
-//        fixedSegmentMenu = SegmentMenu(frame: CGRect(x: 0, y: 0, width: <#T##CGFloat#>, height: <#T##CGFloat#>))
-        
+                
         headView = HeaderView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: inset))
         
         segmentMenu = headView?.segmentMenu
@@ -76,7 +74,7 @@ class ViewController: UIViewController {
             print("old.y" + "\(old.y)")
             print(diff)
             
-            if new.y >= 200 {
+            if new.y >= 360 {
                 if headView?.superview != self.view {
                     self.view?.addSubview(headView!)
                     headView?.frame.origin.y = -headerViewHeight
@@ -108,15 +106,16 @@ extension ViewController: SegmentMenuDelegate {
     func menuButtonDidClick(index: Int) {
         showingVC?.view.removeFromSuperview()
         let selectedVC: BasicTableViewController = self.childViewControllers[index] as! BasicTableViewController
-        selectedVC.view.frame = self.view.bounds
+        if (selectedVC.view.superview == nil){
+            self.view.addSubview(selectedVC.view)
+            selectedVC.view.frame = self.view.bounds
+        }
         selectedVC.tableView?.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: inset))
         selectedVC.tableView?.tag = index
         selectedVC.tableView?.addObserver(self, forKeyPath: "contentOffset",
                                           options: [NSKeyValueObservingOptions.new, NSKeyValueObservingOptions.old],
                                           context: nil)
-        if (selectedVC.view.superview == nil){
-            self.view.addSubview(selectedVC.view)
-        }
+        
         
         let offSet = offSetDic[(selectedVC.tableView?.tag)!]
         selectedVC.tableView?.contentOffset = CGPoint(x: 0, y: offSet!)

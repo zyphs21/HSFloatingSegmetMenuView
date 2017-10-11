@@ -16,7 +16,7 @@ class HeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 200))
+        view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 360))
         view.backgroundColor = UIColor.cyan
         segmentMenu = SegmentMenu(frame: CGRect(x: 0, y: view.frame.maxY, width: UIScreen.main.bounds.width, height: 40))
         
